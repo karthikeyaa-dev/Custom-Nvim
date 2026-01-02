@@ -1,4 +1,4 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+--if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
 -- You can also add or configure plugins by creating files in this `plugins/` folder
 -- PLEASE REMOVE THE EXAMPLES YOU HAVE NO INTEREST IN BEFORE ENABLING THIS FILE
@@ -19,28 +19,41 @@ return {
   -- == Examples of Overriding Plugins ==
 
   -- customize dashboard options
+
+
   {
     "folke/snacks.nvim",
     opts = {
       dashboard = {
         preset = {
-          header = table.concat({
-            " █████  ███████ ████████ ██████   ██████ ",
-            "██   ██ ██         ██    ██   ██ ██    ██",
-            "███████ ███████    ██    ██████  ██    ██",
-            "██   ██      ██    ██    ██   ██ ██    ██",
-            "██   ██ ███████    ██    ██   ██  ██████ ",
-            "",
-            "███    ██ ██    ██ ██ ███    ███",
-            "████   ██ ██    ██ ██ ████  ████",
-            "██ ██  ██ ██    ██ ██ ██ ████ ██",
-            "██  ██ ██  ██  ██  ██ ██  ██  ██",
-            "██   ████   ████   ██ ██      ██",
-          }, "\n"),
+          header = table.concat(
+            vim.list_extend(
+              { "", "" },  -- a little space at the top
+              vim.list_slice(
+                vim.fn.readfile(vim.fn.expand("~/.config/nvim/assets/sample.txt")),
+                1, 25 -- show first 25 lines of ASCII art
+              )
+            ),
+            "\n"
+          ),
+          keys = {
+            { icon = " ", key = "f", desc = "Find File", action = ":Telescope find_files" },
+            { icon = "󰈞 ", key = "g", desc = "Find Text", action = ":Telescope live_grep" },
+            { icon = " ", key = "n", desc = "Neogit", action = ":Neogit" },
+            { icon = " ", key = "l", desc = "Git Graph", action = "<leader>gl" },
+            { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy" },
+            { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+          },
+          keys_opts = {
+            gap = 0,        -- reduce the space between header and keys
+            padding = 0,    -- remove extra padding
+          },
         },
       },
     },
   },
+
+
 
   -- You can disable default plugins as follows:
   { "max397574/better-escape.nvim", enabled = false },

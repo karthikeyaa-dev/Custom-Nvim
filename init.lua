@@ -15,6 +15,7 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
+vim.opt.termguicolors = true
 -- validate that lazy is available
 if not pcall(require, "lazy") then
   -- stylua: ignore
@@ -22,6 +23,7 @@ if not pcall(require, "lazy") then
   vim.fn.getchar()
   vim.cmd.quit()
 end
+
 
 require "lazy_setup"
 require "polish"

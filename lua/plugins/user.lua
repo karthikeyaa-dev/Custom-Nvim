@@ -21,40 +21,62 @@ return {
   -- customize dashboard options
 
 
+
+
+
+
+  -- Snacks.nvim dashboard
+
+
   {
     "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
     opts = {
       dashboard = {
+        enabled = true,
         preset = {
-          header = table.concat(
-            vim.list_extend(
-              { "", "" },  -- a little space at the top
-              vim.list_slice(
-                vim.fn.readfile(vim.fn.expand("~/.config/nvim/assets/sample.txt")),
-                1, 25 -- show first 25 lines of ASCII art
-              )
-            ),
-            "\n"
-          ),
+          -- ASCII header with system info
+          header = table.concat({
+            " ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗",
+            " ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║",
+            " ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║",
+            " ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║",
+            " ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║",
+            " ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝",
+            "",
+            "⏰ " .. os.date("%I:%M %p") .. " | 📅 " .. os.date("%A, %B %d") .. " | 🚀 System up",
+          }, "\n"),
+
+          -- Key mappings with nicer emojis
           keys = {
-            { icon = " ", key = "f", desc = "Find File", action = ":Telescope find_files" },
-            { icon = "󰈞 ", key = "g", desc = "Find Text", action = ":Telescope live_grep" },
-            { icon = " ", key = "n", desc = "Neogit", action = ":Neogit" },
-            { icon = " ", key = "l", desc = "Git Graph", action = "<leader>gl" },
-            { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy" },
-            { icon = " ", key = "q", desc = "Quit", action = ":qa" },
-          },
-          keys_opts = {
-            gap = 0,        -- reduce the space between header and keys
-            padding = 0,    -- remove extra padding
+            { icon = "🗂️  ", key = "f", desc = "Find File", action = ":Telescope find_files" },
+            { icon = "🔍 ", key = "g", desc = "Find Text", action = ":Telescope live_grep" },
+            { icon = "📄 ", key = "r", desc = "Recent Files", action = ":Telescope oldfiles" },
+            { icon = "🏷️ ", key = "b", desc = "Browse Repo", action = ":Telescope git_files" },
+            { icon = "🚪 ", key = "q", desc = "Quit", action = ":qa" },
           },
         },
+
+        sections = {
+          -- Header
+          { section = "header", padding = 2 },
+
+          -- Keys / shortcuts
+          { section = "keys", gap = 1, padding = 1 },
+
+          -- Recent Files
+          { title = "📄 Recent Files", icon = "📄", section = "recent_files", indent = 2, padding = 1 },
+
+          -- Projects
+          { title = "🗂️ Projects", icon = "🗂️", section = "projects", indent = 2, padding = 1 },
+        },
+
+        padding = 2,
+        gap = 1,
       },
     },
   },
-
-
-
   -- You can disable default plugins as follows:
   { "max397574/better-escape.nvim", enabled = false },
 

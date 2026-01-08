@@ -39,11 +39,13 @@ return {
         color = "#EC4899", -- Pink/Magenta
         alt = { "TESTING", "PASSED", "FAILED" } 
       },
+
       INFO = {
         icon = " ",
-        color = "#0EA5E9", -- Light Blue
+        color = "#08CB00", -- Emerald Green
         alt = { "TIP", "HINT" }
       },
+
       DEBUG = {
         icon = " ",
         color = "#8B5CF6", -- Lavender Purple
